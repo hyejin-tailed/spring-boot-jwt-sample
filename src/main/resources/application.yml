@@ -1,0 +1,32 @@
+
+ spring:
+
+   h2: #h2 콘솔 사용하여 메모리에 데이터를 저장, securetyConfig
+     console:
+       enabled: true
+
+   datasource:
+     url: jdbc:h2:mem:testdb
+     driver-class-name: org.h2.Driver
+     username: sa
+     password:
+
+   jpa:
+     database-platform: org.hibernate.dialect.H2Dialect
+     hibernate:
+       ddl-auto: create-drop #drop, create, alter 종료할 때 drop, spring-boot 서버가 시작될 떄마다 테이블들이 새로 만들어주기때문에 초기에 data 를 자동으로 DB에 넣어줌->data.sql
+     properties:
+       hibernate:
+         format_sql: true
+         show_sql: true
+
+ jwt:
+   header: Authorization
+   #HS512 알고리즘을 사용할 것이기 때문에 512bit, 즉 64byte 이상의 secret key를 사용해야 한다.
+   #echo 'silvernine-tech-spring-boot-jwt-tutorial-secret-silvernine-tech-spring-boot-jwt-tutorial-secret'|base64
+   secret: c2lsdmVybmluZS10ZWNoLXNwcmluZy1ib290LWp3dC10dXRvcmlhbC1zZWNyZXQtc2lsdmVybmluZS10ZWNoLXNwcmluZy1ib290LWp3dC10dXRvcmlhbC1zZWNyZXQK
+   token-validity-in-seconds: 86400
+
+ logging:
+   level:
+     me.silvernine: DEBUG
