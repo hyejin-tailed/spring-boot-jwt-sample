@@ -32,11 +32,11 @@ public class CustomUserDetailsService implements UserDetailsService {
 
     private org.springframework.security.core.userdetails.User createUser(String username, User user) {
         //로그인시 DB에서 유저정보와 권한을 가져와서 userDetails.User객체를 생성해서 리턴
-        if (!user.isEnabled()) {
+        if (!user.isActivate()) {
             throw new RuntimeException(username + " -> 활성화되어 있지 않습니다.");
         }
         List<GrantedAuthority> grantedAuthorities = user.getAuthorities().stream()
-                .map(authority -> new SimpleGrantedAuthority(authority.getAuthority()))
+                .map(authority -> new SimpleGrantedAuthority(authority.getAuthorityName()))
                 .collect(Collectors.toList());
         return new org.springframework.security.core.userdetails.User(user.getUsername(),
                 user.getPassword(),
